@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 import sys, pickle
 
 from PyQt5 import uic, QtWidgets, QtCore, QtGui
-import data_visualize
+import data_visualize, table_display
 
 class UI(QMainWindow):
     def __init__(self):
@@ -16,6 +16,17 @@ class UI(QMainWindow):
         self.column_list = self.findChild(QListWidget, "column_list")
         self.Submit_btn = self.findChild(QPushButton, "Submit")
         self.target_col = self.findChild(QLabel, "target_col")
+        self.table = self.findChild(QTableView, "tableView")
+        self.data_shape = self.findChild(QLabel, "shape")
+        self.cat_column = self.findChild(QComboBox, "cat_column")
+        self.scaler = self.findChild(QComboBox, "scaler")
+        self.drop_column = self.findChild(QComboBox, "drop_column")
+        self.empty_column = self.findChild(QComboBox, "empty_column")
+        self.scale_btn = self.findChild(QPushButton, "scale_btn")
+        self.drop_btn = self.findChild(QPushButton, "drop_btn")
+        self.fillmean_btn = self.findChild(QPushButton, "fillmean_btn")
+        self.fillna_btn = self.findChild(QPushButton, "fillna_btn")
+        self.convert_btn = self.findChild(QPushButton, "convert_btn")
         # 버튼 클릭
         self.Browse.clicked.connect(self.getCSV)
         self.Submit_btn.clicked.connect(self.set_target)
@@ -37,6 +48,9 @@ class UI(QMainWindow):
         # self.column_list.clear() # 계속 버튼 눌렀을 때 그 전꺼 지우는 코드
         # self.column_list.addItems(["브라우져", "브라우승", "브라질"])
         self.filldetails(0)
+    def fill_combo_box(self):
+        x = table_display.DataFrameModel(self.df)
+        self.table.setModel(x)
 
     def filldetails(self, flag=1):
         
@@ -51,6 +65,9 @@ class UI(QMainWindow):
             for i , j in enumerate(self.column_arr):
                 stri = f'{j} ------- {str(self.df[j].dtype)}'
                 self.column_list.insertItem(i, stri)
+        df_shape = f'Shape-rows : {self.df.shape[0]}, columns:{self.df.shape[1]}'
+        self.data_shape.setText(df_shape)
+        self.fill_combo_box()
 
 if __name__ == '__main__': # 가장 먼저 실행
     app = QApplication(sys.argv)
