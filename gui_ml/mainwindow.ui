@@ -400,7 +400,7 @@
      <string>Drop</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="fillmiean_btn">
+   <widget class="QPushButton" name="fillmean_btn">
     <property name="geometry">
      <rect>
       <x>880</x>
