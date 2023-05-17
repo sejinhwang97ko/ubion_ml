@@ -14,8 +14,20 @@ class UI(QMainWindow):
 
         self.Browse = self.findChild(QPushButton, "Browse")
         self.column_list = self.findChild(QListWidget, "column_list")
+        self.Submit_btn = self.findChild(QPushButton, "Submit")
+        self.target_col = self.findChild(QLabel, "target_col")
         # 버튼 클릭
         self.Browse.clicked.connect(self.getCSV)
+        self.Submit_btn.clicked.connect(self.set_target)
+        self.column_list.clicked.connect(self.target)
+    def target(self):
+        self.item = self.column_list.currentItem().text() # 클릭한 상태의 데이터가 저장
+        print(self.item)
+
+    def set_target(self):
+        self.target_value = str(self.item).split()[0]
+        print(self.target_value)
+        self.target_col.setText(self.target_value)
     def getCSV(self):
         self.filepath , _ = QFileDialog.getOpenFileName(self, "Open File", "C:/Users/Sejin/Documents/GitHub/ubion_ml/datasets", "CSV(*.CSV)")
         # 주소 적은 뒤 \가 아닌 /로 변경
