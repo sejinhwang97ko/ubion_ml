@@ -1,0 +1,39 @@
+pip install pyside2
+
+시스템 환경변수 편집에 사용자 변수- path - 새로 추가
+C:\Python 3.7.1\Lib\site-packages\PySide2 하고
+cmdp에 cd / 하고
+cd C:\Python 3.7.1\Lib\site-packages\PySide2 하고
+designer하면 Qt designer 열림
+저장은 ubion_ml에 gui_ml에 mainwindow.ui 이름으로 저장
+-----------------------------------------------------------------------------------
+- main window 생성
+- <버튼> 왼쪽에 push button 드래그로 main window에 옮기기
+push button 눌러 오른쪽 속성편집기에 font에 포인트크기
+우클릭 스타일 시트- 색 추가- background color
+
+오른쪽 위에 객체 탐색기에 클래스qpushbutton에 해당하는 거 객체이름을 Browse로 바꿈
+- <글자> 왼쪽에 display widgets에 text browser
+이것을 또 복사하고 싶으면 ctrl 누르고 드래그 하면 하나 더 생김
+오른쪽 속성 편집기에 alignment의 수평을 수평가운데정렬 하면 글자 중간으로 이동됨
+- <박스> 왼쪽에 item widgets에 list widget
+오른쪽 위에 객체 탐색기에 클래스QListWidget에 해당하는 거 객체이름을 column_list로 바꿈
+
+- <박스> 왼쪽에 Item Views에 table view
+- <토글> 왼쪽에 input widgets에 combo box
+오른쪽 위에 객체 탐색기에 클래스QComboBox에 해당하는 거 객체이름을 scaler로 바꿈
+항목 편집에 StandardScaler이랑 MinMaxScaler랑 PowerScaler 입력
+-----------------------------------------------------------------------------------
+gui_ml 폴더에 
+gui_ml.py라는 파일 만듬
+
+pip install pyqt5
+
+코드 다 입력하고
+
+cmd에서 
+C:\Users\Sejin\Documents\GitHub\ubion_ml\gui_ml 로 이동해서
+python gui_ml.py 하면 ui 뜸 (qt designer랑 gui_ml.py 다 저장된 상태에서)
+-----------------------------------------------------------------------------------
+browse 버튼 눌러 파일 불러와서
+한 컬럼을 클릭하고 set target 버튼 누르면 그것이 target으로 지정되어 target set 글자 밑에 그 컬럼 글자가 뜸
