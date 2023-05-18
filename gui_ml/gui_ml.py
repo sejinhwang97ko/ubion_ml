@@ -3,11 +3,12 @@ import sys, pickle
 
 from PyQt5 import uic, QtWidgets, QtCore, QtGui
 import data_visualize, table_display
+import Linear_Regression, SVM, Logistic_Regression, Random_Forest
 
 class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
-        uic.loadUi("./mainwindow2.ui", self)
+        uic.loadUi("./mainwindow.ui", self)
         global data #초기 지정 data를 어디서나 쓸 수 있음
         data = data_visualize.data_()
         self.show()
@@ -42,7 +43,8 @@ class UI(QMainWindow):
         self.plot_marker = self.findChild(QComboBox, "plot_marker")
         self.lineplot = self.findChild(QPushButton,"lineplot")
 
-
+        self.model_select = self.findChild(QComboBox, "model_select")
+        self.train = self.findChild(QPushButton,"train")
 
         # 버튼 클릭
         self.Browse.clicked.connect(self.getCSV)
@@ -55,7 +57,14 @@ class UI(QMainWindow):
         self.scale_btn.clicked.connect(self.scale_value)
         self.scatterplot.clicked.connect(self.scatter_plot)
         self.lineplot.clicked.connect(self.line_plot)
+        self.train.clicked.connect(self.train_func)
 
+    def train_func(self):
+        my_dict = {"Linear Regression":Linear_Regression, \
+             "SVM":SVM, "Logistic Regression":Logistic_Regression, "Random Forest":Random_Forest}
+        if self.target_value != '':
+            name = self.model_select.currentText()
+            self.win = my_dict[name].UI(self.df, self.target_value)
     def line_plot(self):
         x = self.plot_x.currentText()
         y = self.plot_y.currentText()
@@ -142,6 +151,11 @@ class UI(QMainWindow):
         self.scatter_x.addItems(self.column_arr)
         self.scatter_y.clear()
         self.scatter_y.addItems(self.column_arr)
+
+        self.plot_x.clear()
+        self.plot_x.addItems(self.column_arr)
+        self.plot_y.clear()
+        self.plot_y.addItems(self.column_arr)        
 
         x = table_display.DataFrameModel(self.df)
         self.table.setModel(x)
